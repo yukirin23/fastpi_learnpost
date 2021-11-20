@@ -28,3 +28,12 @@ class User(Base):
     password = Column(String, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True),
                         server_default=text('now()'), nullable=False)
+
+
+class Vote(Base):
+    __tablename__ = "votes"
+
+    user_id = Column(Integer, ForeignKey(
+        "user.id", ondelete="CASCADE"), primary_key=True)
+    post_id = Column(Integer, ForeignKey(
+        "post.id", ondelete="CASCADE"), primary_key=True)
