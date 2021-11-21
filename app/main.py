@@ -1,8 +1,11 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
 from . import models
 from .database import engine
 from .routers import post, user, auth, vote
 from .config import settings
+
 
 import sentry_sdk
 sentry_sdk.init(
@@ -15,10 +18,22 @@ sentry_sdk.init(
 )
 
 
-# generate table
-models.Base.metadata.create_all(bind=engine)
+# generate table by sqlalchemy after first loading
+# models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+
+#access website CORS (Cross-Origin Resource Sharing) security
+origins = ["*"]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(post.router)
 app.include_router(user.router)

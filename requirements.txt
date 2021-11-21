@@ -1,6 +1,7 @@
 fastapi
 psycopg2
 sqlalchemy
+alembic
 passlib[bcrypt] 
 python-jose[cryptography]
 fastapi-security

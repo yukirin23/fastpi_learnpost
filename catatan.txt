@@ -1,0 +1,8 @@
+penggunaan alembic
+
+1. alembic init alembic #create folder alembic
+2. configure alembic document env.py dan alembic.ini
+3. alembic revision -m " " # create file version for integration database
+4. update revision file sesuai table yang akan di migrasi
+5. alembic upgrade "no revision" / alembic upgrade head create table or add column
+6. alembic downgrade "no revision"  delete/table or remove column
