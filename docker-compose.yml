@@ -1,0 +1,31 @@
+version: "3"
+services: 
+  api: 
+    build: .
+    ports: 
+      - 8000:8000
+    #env_file: 
+    #  - ./.env
+    environment:
+      - DATABASE_HOSTNAME=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_PASSWORD=khalida23
+      - DATABASE_NAME=fastapiDB
+      - DATABASE_USERNAME=postgres
+      - SECRET_KEY="3b56f6aa9c1c0462298fc8bafa0e88092790750cb00de73d02d15eaac5a6809a"
+      - ALGORITHM="HS256"
+      - ACCESS_TOKEN_EXPIRE_MINUTES=15
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    depends_on:
+      - postgres
+
+  postgres: 
+    image: postgres
+    environment: 
+      - POSTGRES_PASSWORD=khalida23
+      - POSTGRES_DB=fastapiDB        
+    volumes: 
+      - postgres-db:/var/lib/postgresql/data
+
+volumes: 
+  postgres-db:
